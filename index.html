@@ -1,0 +1,3523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mais Açaí</title>
+
+<style>
+
+:root{
+  --purple:#5d1b78;
+  --purple-dark:#431253;
+  --purple-light:#f4edf7;
+  --text:#242024;
+  --muted:#77727a;
+  --background:#f7f5f8;
+  --white:#fff;
+  --border:#e7e2e9;
+  --green:#20b45a;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:var(--background);
+  color:var(--text);
+  padding-bottom:90px;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:var(--purple);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.header{
+  max-width:1100px;
+  height:76px;
+  margin:auto;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:45px;
+  height:45px;
+  border-radius:12px;
+  background:white;
+  color:var(--purple);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:10px;
+  font-weight:900;
+}
+
+.brand h1{
+  font-size:21px;
+  color:white;
+}
+
+.brand span{
+  display:block;
+  margin-top:2px;
+  font-size:11px;
+  color:#eadff0;
+}
+
+.header-cart{
+  border:1px solid rgba(255,255,255,.25);
+  background:white;
+  color:var(--purple);
+  padding:11px 17px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.header-cart:hover{
+  background:#f2eaf5;
+  transform:translateY(-1px);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  background:linear-gradient(
+    120deg,
+    var(--purple-dark),
+    #76268f
+  );
+  color:white;
+}
+
+.hero-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:48px 20px;
+}
+
+.hero h2{
+  font-size:36px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  max-width:520px;
+  color:#eee4f0;
+  line-height:1.5;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:30px 20px;
+}
+
+/* =========================
+   CATEGORIAS
+========================= */
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding-bottom:4px;
+  margin-bottom:28px;
+}
+
+.category{
+  border:1px solid var(--border);
+  background:white;
+  color:#555;
+  padding:10px 18px;
+  border-radius:30px;
+  white-space:nowrap;
+  cursor:pointer;
+}
+
+.category.active{
+  background:var(--purple);
+  border-color:var(--purple);
+  color:white;
+}
+
+/* =========================
+   PRODUTOS
+========================= */
+
+.section-title{
+  font-size:24px;
+  margin-bottom:16px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+
+.product{
+  display:flex;
+  min-height:190px;
+  overflow:hidden;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+}
+
+.product-image{
+  width:38%;
+  min-height:190px;
+  background:linear-gradient(
+    145deg,
+    #4d1465,
+    #9b4eb1
+  );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:42px;
+}
+
+.product-content{
+  flex:1;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.product h3{
+  font-size:18px;
+  margin-bottom:7px;
+}
+
+.product-description{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.4;
+}
+
+.product-price{
+  margin-top:13px;
+  color:var(--purple);
+  font-size:18px;
+  font-weight:800;
+}
+
+.mount{
+  width:100%;
+  border:0;
+  background:var(--purple);
+  color:white;
+  padding:11px;
+  border-radius:9px;
+  margin-top:13px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.overlay.active{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:560px;
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:20px;
+}
+
+.modal-top{
+  padding:22px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.modal-top h2{
+  font-size:21px;
+}
+
+.close{
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:50%;
+  background:#f1eef2;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.modal-body{
+  padding:22px;
+}
+
+/* =========================
+   PRODUTO SELECIONADO
+========================= */
+
+.product-selected{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#f8f5f9;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:22px;
+}
+
+.product-selected strong:last-child{
+  color:var(--purple);
+}
+
+/* =========================
+   ACOMPANHAMENTOS
+========================= */
+
+.addons-title{
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.addon{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.addon-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.addon input{
+  width:18px;
+  height:18px;
+  accent-color:var(--purple);
+}
+
+.addon-free{
+  color:#20a854;
+  font-weight:700;
+  font-size:13px;
+}
+
+/* =========================
+   OUTRAS OPÇÕES
+========================= */
+
+.options-title{
+  font-size:15px;
+  font-weight:800;
+  margin-top:22px;
+  margin-bottom:10px;
+}
+
+.extra-option{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.extra-option strong{
+  display:block;
+  font-size:14px;
+}
+
+.extra-option span{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.extra-option select{
+  min-width:100px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:9px 10px;
+  background:white;
+  color:var(--purple);
+  font-weight:700;
+  outline:none;
+}
+
+/* =========================
+   QUANTIDADE
+========================= */
+
+.quantity{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:22px;
+}
+
+.quantity-control{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.quantity-control button{
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:8px;
+  background:#eee9ef;
+  color:var(--purple);
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* =========================
+   TOTAL MODAL
+========================= */
+
+.modal-total{
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid var(--border);
+  margin-top:24px;
+  padding-top:18px;
+  font-size:20px;
+  font-weight:800;
+}
+
+.modal-total span:last-child{
+  color:var(--purple);
+}
+
+.add-cart{
+  width:100%;
+  border:0;
+  background:var(--purple);
+  color:white;
+  padding:15px;
+  border-radius:11px;
+  margin-top:18px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* =========================
+   BARRA CARRINHO
+========================= */
+
+.cart-bar{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:20;
+  background:white;
+  border-top:1px solid var(--border);
+  padding:12px 20px;
+}
+
+.cart-bar-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.cart-items{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.cart-total{
+  color:var(--purple);
+  font-size:20px;
+  font-weight:800;
+}
+
+.checkout{
+  border:0;
+  background:var(--purple);
+  color:white;
+  padding:13px 22px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.checkout:disabled{
+  background:#c9c5ca;
+}
+
+/* =========================
+   CARRINHO
+========================= */
+
+.cart-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:var(--background);
+  display:none;
+}
+
+.cart-overlay.active{
+  display:block;
+}
+
+.cart-page{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+.cart-header{
+  height:78px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:0 20px;
+}
+
+.back-btn{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:10px;
+  background:#f2edf4;
+  color:var(--purple);
+  font-size:21px;
+  cursor:pointer;
+}
+
+.cart-header h2{
+  font-size:21px;
+}
+
+.cart-header span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:2px;
+}
+
+.cart-content{
+  width:100%;
+  max-width:800px;
+  margin:auto;
+  padding:22px 20px 130px;
+  overflow:auto;
+  flex:1;
+}
+
+/* =========================
+   ITEM CARRINHO
+========================= */
+
+.cart-item{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.cart-item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.cart-item-name{
+  font-size:16px;
+  font-weight:800;
+}
+
+.cart-item-price{
+  color:var(--purple);
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.cart-item-addons{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  margin-top:7px;
+}
+
+.cart-item-options{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  margin-top:6px;
+}
+
+.cart-item-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:15px;
+}
+
+.quantity-box{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.quantity-box button{
+  width:32px;
+  height:32px;
+  border:0;
+  border-radius:8px;
+  background:#eee9ef;
+  color:var(--purple);
+  font-size:19px;
+  cursor:pointer;
+}
+
+.quantity-number{
+  min-width:20px;
+  text-align:center;
+  font-weight:800;
+}
+
+.remove-item{
+  border:0;
+  background:none;
+  color:#a33;
+  font-size:12px;
+  cursor:pointer;
+}
+
+/* =========================
+   ENTREGA / RETIRADA
+========================= */
+
+.cart-options{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  margin-top:20px;
+}
+
+.cart-options h3{
+  font-size:16px;
+  margin-bottom:13px;
+}
+
+.receive-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.receive-option{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:11px;
+  padding:14px;
+  text-align:left;
+  cursor:pointer;
+}
+
+.receive-option strong{
+  display:block;
+  font-size:14px;
+}
+
+.receive-option span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.receive-option.active{
+  border:2px solid var(--purple);
+  background:#f7f0f9;
+}
+
+/* =========================
+   RESUMO
+========================= */
+
+.cart-summary{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  margin-top:15px;
+}
+
+.summary-line{
+  display:flex;
+  justify-content:space-between;
+  padding:7px 0;
+  color:#555;
+  font-size:14px;
+}
+
+.summary-total{
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid var(--border);
+  margin-top:10px;
+  padding-top:15px;
+  font-size:20px;
+  font-weight:800;
+}
+
+.summary-total strong{
+  color:var(--purple);
+}
+
+/* =========================
+   CARRINHO VAZIO
+========================= */
+
+.empty-cart{
+  text-align:center;
+  padding:90px 20px;
+}
+
+.empty-icon{
+  font-size:40px;
+  margin-bottom:15px;
+}
+
+.empty-cart h3{
+  font-size:20px;
+}
+
+.empty-cart p{
+  color:var(--muted);
+  font-size:14px;
+  margin-top:6px;
+}
+
+.empty-cart button{
+  border:0;
+  background:var(--purple);
+  color:white;
+  padding:13px 22px;
+  border-radius:10px;
+  margin-top:20px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* =========================
+   RODAPÉ CARRINHO
+========================= */
+
+.cart-footer{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:110;
+  background:white;
+  border-top:1px solid var(--border);
+  padding:13px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.cart-footer small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.cart-footer strong{
+  color:var(--purple);
+  font-size:20px;
+}
+
+.cart-footer button{
+  border:0;
+  background:var(--purple);
+  color:white;
+  padding:14px 24px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.cart-footer button:disabled{
+  background:#c9c5ca;
+}
+
+/* =========================
+   CHECKOUT
+========================= */
+
+.checkout-modal{
+  max-width:600px;
+}
+
+.field{
+  margin-bottom:15px;
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:13px;
+  outline:none;
+  background:white;
+}
+
+.change-options{
+  background:#f8f5f9;
+  border-radius:12px;
+  padding:14px;
+  margin-top:5px;
+  margin-bottom:15px;
+}
+
+.change-options .field:last-child{
+  margin-bottom:0;
+}
+
+.receive{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.receive button{
+  border:1px solid var(--border);
+  background:white;
+  padding:14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.receive button.selected{
+  border-color:var(--purple);
+  background:#f4edf6;
+  color:var(--purple);
+}
+
+.order-summary{
+  background:#f8f5f9;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:20px;
+}
+
+.summary-item{
+  padding:10px 0;
+  border-bottom:1px solid #e8e2e9;
+  font-size:14px;
+}
+
+.summary-item:last-child{
+  border:0;
+}
+
+.whatsapp{
+  width:100%;
+  background:var(--green);
+  border:0;
+  color:white;
+  padding:15px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:750px){
+
+  .products{
+    grid-template-columns:1fr;
+  }
+
+  .hero-inner{
+    padding:38px 20px;
+  }
+
+  .hero h2{
+    font-size:29px;
+  }
+
+}
+
+@media(max-width:500px){
+
+  .product{
+    min-height:165px;
+  }
+
+  .product-image{
+    width:34%;
+    min-height:165px;
+  }
+
+  .product-content{
+    padding:14px;
+  }
+
+  .product h3{
+    font-size:16px;
+  }
+
+  .product-description{
+    font-size:12px;
+  }
+
+  .product-price{
+    font-size:16px;
+  }
+
+  .cart-content{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+  .cart-footer{
+    padding:12px 14px;
+  }
+
+  .cart-footer button{
+    padding:13px 17px;
+  }
+
+}
+.product-image{
+  width:38%;
+  min-height:190px;
+  overflow:hidden;
+  background:#4d1465;
+}
+
+.product-image img{
+  width:100%;
+  height:100%;
+  min-height:190px;
+  object-fit:cover;
+  display:block;
+}
+.brand-mark{
+  width:70px;
+  height:70px;
+  border-radius:12px;
+  overflow:hidden;
+  flex-shrink:0;
+  background:transparent;
+  padding:0;
+  border:none;
+  box-shadow:none;
+}
+
+.brand-mark img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <div class="header">
+
+    <div class="brand">
+
+      <div class="brand-mark">
+        <img src="brancalogo.png" alt="Mais Açaí">
+      </div>
+
+      <div>
+
+        <h1>Mais Açaí</h1>
+
+        <span>
+          Seu açaí, do seu jeito.
+        </span>
+
+      </div>
+
+    </div>
+
+    <button
+      class="header-cart"
+      onclick="openCart()"
+    >
+      Carrinho
+      (<span id="headerCount">0</span>)
+    </button>
+
+  </div>
+
+</header>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <h2>
+      Peça seu açaí.
+    </h2>
+
+    <p>
+      Escolha seu tamanho, monte com seus
+      acompanhamentos favoritos e receba onde estiver.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     CARDÁPIO
+========================= -->
+
+<main class="container">
+
+  <div class="categories">
+
+    <button class="category active">
+      Açaí
+    </button>
+
+    <button class="category">
+      Combos
+    </button>
+
+    <button class="category">
+      Bebidas
+    </button>
+
+  </div>
+
+  <h2 class="section-title">
+    Açaí
+  </h2>
+
+  <div class="products">
+
+    <!-- 200ML -->
+
+    <article class="product">
+
+      <div class="product-image">
+        <img src="imgacai.png" alt="Açaí 200ml">
+      </div>
+
+      <div class="product-content">
+
+        <div>
+
+          <h3>
+            Açaí 200ml
+          </h3>
+
+          <p class="product-description">
+            Açaí cremoso para matar a vontade.
+            Monte com seus acompanhamentos.
+          </p>
+
+          <div class="product-price">
+            R$ 10,00
+          </div>
+
+        </div>
+
+        <button
+          class="mount"
+          onclick="openProduct('Açaí 200ml',10)"
+        >
+          Montar açaí
+        </button>
+
+      </div>
+
+    </article>
+
+    <!-- 300ML -->
+
+    <article class="product">
+
+      <div class="product-image">
+        <img src="imgacai.png" alt="Açaí 300ml">
+      </div>
+
+      <div class="product-content">
+
+        <div>
+
+          <h3>
+            Açaí 300ml
+          </h3>
+
+          <p class="product-description">
+            Tamanho ideal para caprichar
+            nos acompanhamentos.
+          </p>
+
+          <div class="product-price">
+            R$ 12,00
+          </div>
+
+        </div>
+
+        <button
+          class="mount"
+          onclick="openProduct('Açaí 300ml',12)"
+        >
+          Montar açaí
+        </button>
+
+      </div>
+
+    </article>
+
+    <!-- 400ML -->
+
+    <article class="product">
+
+      <div class="product-image">
+        <img src="imgacai.png" alt="Açaí 400ml">
+      </div>
+
+      <div class="product-content">
+
+        <div>
+
+          <h3>
+            Açaí 400ml
+          </h3>
+
+          <p class="product-description">
+            Para quem quer um açaí
+            maior e bem caprichado.
+          </p>
+
+          <div class="product-price">
+            R$ 15,00
+          </div>
+
+        </div>
+
+        <button
+          class="mount"
+          onclick="openProduct('Açaí 400ml',15)"
+        >
+          Montar açaí
+        </button>
+
+      </div>
+
+    </article>
+      <!-- BATIDA 300ML -->
+
+  <article class="product">
+
+    <div class="product-image">
+      <img src="imgbatida.jpeg" alt="Batida 300ml">
+    </div>
+
+    <div class="product-content">
+
+      <h3>Batida 300ml</h3>
+
+      <p class="product-description">
+        Batida 300ml
+      </p>
+
+      <div class="product-bottom">
+
+        <strong class="product-price">
+          R$ 13,00
+        </strong>
+
+        <button
+          class="mount"
+          onclick="addBatida()"
+        >
+          Adicionar
+        </button>
+
+      </div>
+
+    </div>
+
+  </article>
+
+  </div>
+
+</main>
+
+<!-- =========================
+     MODAL PRODUTO
+========================= -->
+
+<div
+  class="overlay"
+  id="productOverlay"
+>
+
+  <div class="modal">
+
+    <div class="modal-top">
+
+      <h2>
+        Monte seu açaí
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeProduct()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="product-selected">
+
+        <strong id="selectedName">
+          Açaí 300ml
+        </strong>
+
+        <strong id="selectedBase">
+          R$ 12,00
+        </strong>
+
+      </div>
+
+<div class="addons-title">
+  Escolha seus acompanhamentos
+</div>
+
+<!-- LEITE EM PÓ -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Leite em pó"
+    >
+
+    <span>
+      Leite em pó
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- MORANGO -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Morango"
+    >
+
+    <span>
+      Morango
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- BANANA -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Banana"
+    >
+
+    <span>
+      Banana
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- CREME DE COOKIES -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Creme de Cookies"
+    >
+
+    <span>
+      Creme de Cookies
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- JUJUBA -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Jujuba"
+    >
+
+    <span>
+      Jujuba
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- DISQUETE -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Disquete"
+    >
+
+    <span>
+      Disquete
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- FINI BANANA -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Fini Banana"
+    >
+
+    <span>
+      Fini Banana
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- PAÇOCA -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Paçoca"
+    >
+
+    <span>
+      Paçoca
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- GRANOLA -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Granola"
+    >
+
+    <span>
+      Granola
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+
+<!-- AMENDOIM -->
+
+<div class="addon">
+
+  <div class="addon-left">
+
+    <input
+      type="checkbox"
+      class="addon-check"
+      data-name="Amendoim"
+    >
+
+    <span>
+      Amendoim
+    </span>
+
+  </div>
+
+  <span class="addon-free">
+    Grátis
+  </span>
+
+</div>
+
+      <!-- OUTRAS OPÇÕES -->
+
+      <div class="options-title">
+        Outras opções
+      </div>
+
+      <div class="extra-option">
+
+        <div>
+          <strong>Precisa de colher?</strong>
+          <span>Escolha uma opção</span>
+        </div>
+
+        <select id="spoonOption">
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
+        </select>
+
+      </div>
+
+      <div class="extra-option">
+
+        <div>
+          <strong>Leite condensado?</strong>
+          <span>Escolha uma opção</span>
+        </div>
+
+        <select id="condensedOption">
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
+        </select>
+
+      </div>
+
+      <!-- QUANTIDADE -->
+
+      <div class="quantity">
+
+        <strong>
+          Quantidade
+        </strong>
+
+        <div class="quantity-control">
+
+          <button onclick="changeQuantity(-1)">
+            −
+          </button>
+
+          <strong id="quantity">
+            1
+          </strong>
+
+          <button onclick="changeQuantity(1)">
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- TOTAL -->
+
+      <div class="modal-total">
+
+        <span>
+          Total
+        </span>
+
+        <span id="modalTotal">
+          R$ 12,00
+        </span>
+
+      </div>
+
+      <button
+        class="add-cart"
+        onclick="addToCart()"
+      >
+        Adicionar ao carrinho
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- =========================
+     CARRINHO
+========================= -->
+
+<div
+  class="cart-overlay"
+  id="cartOverlay"
+>
+
+  <div class="cart-page">
+
+    <div class="cart-header">
+
+      <button
+        class="back-btn"
+        onclick="closeCart()"
+      >
+        ←
+      </button>
+
+      <div>
+
+        <h2>
+          Seu pedido
+        </h2>
+
+        <span id="cartHeaderCount">
+          0 itens
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="cart-content">
+
+      <div id="cartItems"></div>
+
+      <div
+        id="emptyCart"
+        class="empty-cart"
+      >
+
+        <div class="empty-icon">
+          🛒
+        </div>
+
+        <h3>
+          Seu carrinho está vazio
+        </h3>
+
+        <p>
+          Escolha seu açaí e monte do seu jeito.
+        </p>
+
+        <button onclick="closeCart()">
+          Ver cardápio
+        </button>
+
+      </div>
+
+      <!-- ENTREGA -->
+
+      <div
+        id="cartOptions"
+        class="cart-options"
+      >
+
+        <h3>
+          Como você quer receber?
+        </h3>
+
+        <div class="receive-options">
+
+          <button
+            id="cartDelivery"
+            class="receive-option active"
+            onclick="setCartReceive('Entrega')"
+          >
+
+            <strong>
+              Entrega
+            </strong>
+
+            <span>
+              Receba em casa
+            </span>
+
+          </button>
+
+          <button
+            id="cartPickup"
+            class="receive-option"
+            onclick="setCartReceive('Retirada')"
+          >
+
+            <strong>
+              Retirada
+            </strong>
+
+            <span>
+              Retire na loja
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- RESUMO -->
+
+      <div
+        id="cartSummary"
+        class="cart-summary"
+      >
+
+        <div class="summary-line">
+
+          <span>
+            Subtotal
+          </span>
+
+          <strong id="cartSubtotal">
+            R$ 0,00
+          </strong>
+
+        </div>
+
+        <div class="summary-line">
+
+          <span>
+            Taxa de entrega
+          </span>
+
+          <strong id="deliveryFee">
+            R$ 5,00
+          </strong>
+
+        </div>
+
+        <div class="summary-total">
+
+          <span>
+            Total
+          </span>
+
+          <strong id="cartFinalTotal">
+            R$ 0,00
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="cart-footer">
+
+      <div>
+
+        <small>
+          Total
+        </small>
+
+        <strong id="footerTotal">
+          R$ 0,00
+        </strong>
+
+      </div>
+
+      <button
+        id="finishCart"
+        onclick="openCheckoutFromCart()"
+      >
+        Finalizar pedido
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- =========================
+     CHECKOUT
+========================= -->
+
+<div
+  class="overlay"
+  id="checkoutOverlay"
+>
+
+  <div class="modal checkout-modal">
+
+    <div class="modal-top">
+
+      <h2>
+        Finalizar pedido
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeCheckout()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div
+        class="order-summary"
+        id="orderSummary"
+      ></div>
+
+      <h3 style="margin-bottom:12px">
+        Como deseja receber?
+      </h3>
+
+      <div class="receive">
+
+        <button
+          id="deliveryBtn"
+          class="selected"
+          onclick="selectReceive('Entrega')"
+        >
+          Entrega
+        </button>
+
+        <button
+          id="pickupBtn"
+          onclick="selectReceive('Retirada')"
+        >
+          Retirada
+        </button>
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          Nome
+        </label>
+
+        <input
+          id="customerName"
+          placeholder="Digite seu nome"
+        >
+
+      </div>
+
+      <div id="addressFields">
+
+        <div class="field">
+
+          <label>
+            Endereço
+          </label>
+
+          <input
+            id="address"
+            placeholder="Rua e número"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>
+            Bairro
+          </label>
+
+          <input
+            id="neighborhood"
+            placeholder="Seu bairro"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>
+            Complemento
+          </label>
+
+          <input
+            id="complement"
+            placeholder="Apartamento, casa..."
+          >
+
+        </div>
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          Forma de pagamento
+        </label>
+
+        <select id="payment">
+
+          <option value="Pix">Pix</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão">Cartão</option>
+
+        </select>
+
+      </div>
+
+      <!-- TROCO -->
+
+      <div
+        id="changeOptions"
+        class="change-options"
+        style="display:none;"
+      >
+
+        <div class="field">
+
+          <label>
+            Precisa de troco?
+          </label>
+
+          <select id="changeNeeded">
+
+            <option value="Não">
+              Não
+            </option>
+
+            <option value="Sim">
+              Sim
+            </option>
+
+          </select>
+
+        </div>
+
+        <div
+          class="field"
+          id="changeForField"
+          style="display:none;"
+        >
+
+          <label>
+            Troco para quanto?
+          </label>
+
+          <input
+            id="changeFor"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="Ex.: 50,00"
+          >
+
+        </div>
+
+      </div>
+
+      <button
+        class="whatsapp"
+        onclick="sendOrder()"
+      >
+        Enviar pedido pelo WhatsApp
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- =========================
+     BARRA FIXA
+========================= -->
+
+<div class="cart-bar">
+
+  <div class="cart-bar-inner">
+
+    <div>
+
+      <div class="cart-items">
+
+        <span id="cartCount">
+          0
+        </span>
+
+        itens
+
+      </div>
+
+      <div
+        class="cart-total"
+        id="cartTotal"
+      >
+        R$ 0,00
+      </div>
+
+    </div>
+
+    <button
+      class="checkout"
+      id="checkoutButton"
+      onclick="openCart()"
+      disabled
+    >
+      Ver carrinho
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+/* =====================================================
+   VARIÁVEIS
+===================================================== */
+
+let cart = [];
+
+let selectedProduct = null;
+
+let quantity = 1;
+
+let cartReceive = "Entrega";
+
+let receiveType = "Entrega";
+
+const DELIVERY_FEE = 5;
+
+
+/* =====================================================
+   DINHEIRO
+===================================================== */
+
+function money(value){
+
+  return value.toLocaleString(
+    "pt-BR",
+    {
+      style:"currency",
+      currency:"BRL"
+    }
+  );
+
+}
+
+
+/* =====================================================
+   SALVAR DADOS DO CLIENTE
+===================================================== */
+
+function saveCustomerData(){
+
+  const data = {
+
+    name:
+      document
+        .getElementById("customerName")
+        .value
+        .trim(),
+
+    address:
+      document
+        .getElementById("address")
+        .value
+        .trim(),
+
+    neighborhood:
+      document
+        .getElementById("neighborhood")
+        .value
+        .trim(),
+
+    complement:
+      document
+        .getElementById("complement")
+        .value
+        .trim(),
+
+    payment:
+      document
+        .getElementById("payment")
+        .value,
+
+    changeNeeded:
+      document
+        .getElementById("changeNeeded")
+        .value,
+
+    changeFor:
+      document
+        .getElementById("changeFor")
+        .value
+        .trim(),
+
+    receiveType:
+      receiveType
+
+  };
+
+  localStorage.setItem(
+    "maisAcaiCustomerData",
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* =====================================================
+   ATUALIZAR OPÇÃO DE TROCO
+===================================================== */
+
+function updateChangeOptions(){
+
+  const payment =
+    document.getElementById("payment").value;
+
+  const changeOptions =
+    document.getElementById("changeOptions");
+
+  const changeNeeded =
+    document.getElementById("changeNeeded").value;
+
+  const changeForField =
+    document.getElementById("changeForField");
+
+  if(payment === "Dinheiro"){
+
+    changeOptions.style.display = "block";
+
+    changeForField.style.display =
+      changeNeeded === "Sim"
+        ? "block"
+        : "none";
+
+  }else{
+
+    changeOptions.style.display = "none";
+
+    changeForField.style.display = "none";
+
+  }
+
+}
+
+
+/* =====================================================
+   CARREGAR DADOS SALVOS
+===================================================== */
+
+function loadCustomerData(){
+
+  const saved =
+    localStorage.getItem(
+      "maisAcaiCustomerData"
+    );
+
+  if(!saved){
+
+    updateChangeOptions();
+
+    return;
+
+  }
+
+  try{
+
+    const data =
+      JSON.parse(saved);
+
+    if(data.name){
+
+      document.getElementById(
+        "customerName"
+      ).value = data.name;
+
+    }
+
+    if(data.address){
+
+      document.getElementById(
+        "address"
+      ).value = data.address;
+
+    }
+
+    if(data.neighborhood){
+
+      document.getElementById(
+        "neighborhood"
+      ).value = data.neighborhood;
+
+    }
+
+    if(data.complement){
+
+      document.getElementById(
+        "complement"
+      ).value = data.complement;
+
+    }
+
+    if(data.payment){
+
+      document.getElementById(
+        "payment"
+      ).value = data.payment;
+
+    }
+
+    if(data.changeNeeded){
+
+      document.getElementById(
+        "changeNeeded"
+      ).value = data.changeNeeded;
+
+    }
+
+    if(data.changeFor){
+
+      document.getElementById(
+        "changeFor"
+      ).value = data.changeFor;
+
+    }
+
+    if(
+      data.receiveType === "Entrega" ||
+      data.receiveType === "Retirada"
+    ){
+
+      receiveType = data.receiveType;
+
+      cartReceive = data.receiveType;
+
+    }
+
+    updateChangeOptions();
+
+  }catch(error){
+
+    console.log(
+      "Erro ao carregar dados salvos."
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   ABRIR PRODUTO
+===================================================== */
+
+function openProduct(name,price){
+
+  selectedProduct = {
+    name:name,
+    price:price
+  };
+
+  quantity = 1;
+
+  document.getElementById(
+    "selectedName"
+  ).textContent = name;
+
+  document.getElementById(
+    "selectedBase"
+  ).textContent = money(price);
+
+  document.getElementById(
+    "quantity"
+  ).textContent = quantity;
+
+  document
+    .querySelectorAll(".addon-check")
+    .forEach(input => {
+      input.checked = false;
+    });
+
+  /* RESETAR OPÇÕES */
+
+  document.getElementById(
+    "spoonOption"
+  ).value = "Não";
+
+  document.getElementById(
+    "condensedOption"
+  ).value = "Não";
+
+  updateProductTotal();
+
+  document
+    .getElementById("productOverlay")
+    .classList
+    .add("active");
+
+}
+
+
+function closeProduct(){
+
+  document
+    .getElementById("productOverlay")
+    .classList
+    .remove("active");
+
+}
+
+
+/* =====================================================
+   QUANTIDADE DO PRODUTO
+===================================================== */
+
+function changeQuantity(value){
+
+  quantity += value;
+
+  if(quantity < 1){
+    quantity = 1;
+  }
+
+  document.getElementById(
+    "quantity"
+  ).textContent = quantity;
+
+  updateProductTotal();
+
+}
+
+
+/* =====================================================
+   ACOMPANHAMENTOS
+   TODOS GRATUITOS
+===================================================== */
+
+function getAddons(){
+
+  const addons = [];
+
+  document
+    .querySelectorAll(".addon-check:checked")
+    .forEach(input => {
+
+      addons.push({
+
+        name:input.dataset.name,
+
+        price:0
+
+      });
+
+    });
+
+  return addons;
+
+}
+
+
+/* =====================================================
+   TOTAL PRODUTO
+   ACOMPANHAMENTOS NÃO ALTERAM O PREÇO
+===================================================== */
+
+function updateProductTotal(){
+
+  if(!selectedProduct){
+    return;
+  }
+
+  const total =
+    selectedProduct.price * quantity;
+
+  document.getElementById(
+    "modalTotal"
+  ).textContent = money(total);
+
+}
+
+
+document
+  .querySelectorAll(".addon-check")
+  .forEach(input => {
+
+    input.addEventListener(
+      "change",
+      updateProductTotal
+    );
+
+  });
+
+
+/* =====================================================
+   ADICIONAR AO CARRINHO
+===================================================== */
+
+function addToCart(){
+
+  const addons = getAddons();
+
+  const options = {
+
+    spoon:
+      document
+        .getElementById("spoonOption")
+        .value,
+
+    condensedMilk:
+      document
+        .getElementById("condensedOption")
+        .value
+
+  };
+
+  cart.push({
+
+    name:selectedProduct.name,
+
+    base:selectedProduct.price,
+
+    addons:addons,
+
+    options:options,
+
+    quantity:quantity,
+
+    total:
+      selectedProduct.price * quantity
+
+  });
+
+  updateCart();
+
+  closeProduct();
+
+  openCart();
+
+}
+
+
+/* =====================================================
+   ATUALIZAR CARRINHO
+===================================================== */
+
+function updateCart(){
+
+  const count =
+    cart.reduce(
+      (sum,item) =>
+        sum + item.quantity,
+      0
+    );
+
+  const total =
+    cart.reduce(
+      (sum,item) =>
+        sum + item.total,
+      0
+    );
+
+  document.getElementById(
+    "cartCount"
+  ).textContent = count;
+
+  document.getElementById(
+    "headerCount"
+  ).textContent = count;
+
+  document.getElementById(
+    "cartTotal"
+  ).textContent = money(total);
+
+  document.getElementById(
+    "checkoutButton"
+  ).disabled = cart.length === 0;
+
+}
+
+
+/* =====================================================
+   ABRIR CARRINHO
+===================================================== */
+
+function openCart(){
+
+  renderCart();
+
+  document
+    .getElementById("cartOverlay")
+    .classList
+    .add("active");
+
+}
+
+
+function closeCart(){
+
+  document
+    .getElementById("cartOverlay")
+    .classList
+    .remove("active");
+
+}
+
+function addBatida(){
+
+  const batida = {
+    name: "Batida 300ml",
+    base: 13,
+    addons: [],
+    options: {
+      spoon: "Não",
+      condensedMilk: "Não"
+    },
+    quantity: 1,
+    total: 13
+  };
+
+  cart.push(batida);
+
+  // Atualiza o carrinho
+  renderCart();
+  renderSummary();
+
+  // Abre a tela do carrinho
+  openCart();
+}
+
+/* =====================================================
+   RENDERIZAR CARRINHO
+===================================================== */
+
+function renderCart(){
+
+  const container =
+    document.getElementById(
+      "cartItems"
+    );
+
+  const empty =
+    document.getElementById(
+      "emptyCart"
+    );
+
+  const options =
+    document.getElementById(
+      "cartOptions"
+    );
+
+  const summary =
+    document.getElementById(
+      "cartSummary"
+    );
+
+  const finish =
+    document.getElementById(
+      "finishCart"
+    );
+
+  if(cart.length === 0){
+
+    container.innerHTML = "";
+
+    empty.style.display = "block";
+
+    options.style.display = "none";
+
+    summary.style.display = "none";
+
+    finish.disabled = true;
+
+    updateCartNumbers();
+
+    return;
+
+  }
+
+  empty.style.display = "none";
+
+  options.style.display = "block";
+
+  summary.style.display = "block";
+
+  finish.disabled = false;
+
+  let html = "";
+
+  cart.forEach((item,index) => {
+
+    const addonsText =
+      item.addons && item.addons.length
+      ?
+      item.addons
+        .map(addon => addon.name)
+        .join(" • ")
+      :
+      "Nenhum";
+
+    const spoon =
+      item.options?.spoon || "Não";
+
+    const condensedMilk =
+      item.options?.condensedMilk || "Não";
+
+    html += `
+
+      <div class="cart-item">
+
+        <div class="cart-item-top">
+
+          <div>
+
+            <div class="cart-item-name">
+              ${item.quantity}x ${item.name}
+            </div>
+
+            <div class="cart-item-addons">
+              Acompanhamentos:
+              ${addonsText}
+            </div>
+
+            <div class="cart-item-options">
+              🥄 Colher: ${spoon}<br>
+              🥛 Leite condensado: ${condensedMilk}
+            </div>
+
+          </div>
+
+          <div class="cart-item-price">
+            ${money(item.total)}
+          </div>
+
+        </div>
+
+        <div class="cart-item-bottom">
+
+          <button
+            class="remove-item"
+            onclick="removeCartItem(${index})"
+          >
+            Remover
+          </button>
+
+          <div class="quantity-box">
+
+            <button
+              onclick="changeCartQuantity(${index},-1)"
+            >
+              −
+            </button>
+
+            <span class="quantity-number">
+              ${item.quantity}
+            </span>
+
+            <button
+              onclick="changeCartQuantity(${index},1)"
+            >
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  container.innerHTML = html;
+
+  updateCartSummary();
+
+  updateCartNumbers();
+
+}
+
+
+/* =====================================================
+   QUANTIDADE CARRINHO
+===================================================== */
+
+function changeCartQuantity(index,value){
+
+  cart[index].quantity += value;
+
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index,1);
+
+  }else{
+
+    cart[index].total =
+      cart[index].base *
+      cart[index].quantity;
+
+  }
+
+  updateCart();
+
+  renderCart();
+
+}
+
+
+/* =====================================================
+   REMOVER
+===================================================== */
+
+function removeCartItem(index){
+
+  cart.splice(index,1);
+
+  updateCart();
+
+  renderCart();
+
+}
+
+
+/* =====================================================
+   ENTREGA / RETIRADA
+===================================================== */
+
+function setCartReceive(type){
+
+  cartReceive = type;
+
+  receiveType = type;
+
+  document
+    .getElementById("cartDelivery")
+    .classList
+    .toggle(
+      "active",
+      type === "Entrega"
+    );
+
+  document
+    .getElementById("cartPickup")
+    .classList
+    .toggle(
+      "active",
+      type === "Retirada"
+    );
+
+  updateCartSummary();
+
+}
+
+
+/* =====================================================
+   RESUMO CARRINHO
+===================================================== */
+
+function updateCartSummary(){
+
+  const subtotal =
+    cart.reduce(
+      (sum,item) =>
+        sum + item.total,
+      0
+    );
+
+  const delivery =
+    cartReceive === "Entrega"
+      ? DELIVERY_FEE
+      : 0;
+
+  const total =
+    subtotal + delivery;
+
+  document.getElementById(
+    "cartSubtotal"
+  ).textContent =
+    money(subtotal);
+
+  document.getElementById(
+    "deliveryFee"
+  ).textContent =
+    delivery === 0
+      ? "Grátis"
+      : money(delivery);
+
+  document.getElementById(
+    "cartFinalTotal"
+  ).textContent =
+    money(total);
+
+  document.getElementById(
+    "footerTotal"
+  ).textContent =
+    money(total);
+
+}
+
+
+/* =====================================================
+   CONTADORES
+===================================================== */
+
+function updateCartNumbers(){
+
+  const count =
+    cart.reduce(
+      (sum,item) =>
+        sum + item.quantity,
+      0
+    );
+
+  document.getElementById(
+    "cartHeaderCount"
+  ).textContent =
+    count === 1
+      ? "1 item"
+      : count + " itens";
+
+  document.getElementById(
+    "cartCount"
+  ).textContent = count;
+
+  document.getElementById(
+    "headerCount"
+  ).textContent = count;
+
+}
+
+
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+function openCheckoutFromCart(){
+
+  if(cart.length === 0){
+    return;
+  }
+
+  closeCart();
+
+  renderSummary();
+
+  document
+    .getElementById("checkoutOverlay")
+    .classList
+    .add("active");
+
+  loadCustomerData();
+
+  selectReceive(cartReceive);
+
+  updateChangeOptions();
+
+}
+
+
+function closeCheckout(){
+
+  document
+    .getElementById("checkoutOverlay")
+    .classList
+    .remove("active");
+
+}
+
+
+/* =====================================================
+   RESUMO CHECKOUT
+===================================================== */
+
+function renderSummary(){
+
+  let html = "";
+
+  cart.forEach(item => {
+
+    const spoon =
+      item.options?.spoon || "Não";
+
+    const condensedMilk =
+      item.options?.condensedMilk || "Não";
+
+    html += `
+
+      <div class="summary-item">
+
+        <strong>
+          ${item.quantity}x ${item.name}
+        </strong>
+
+    `;
+
+    if(
+      item.addons &&
+      item.addons.length > 0
+    ){
+
+      html += `
+
+        <div
+          style="
+            margin-top:6px;
+            color:#777;
+          "
+        >
+
+          <strong>
+            Acompanhamentos:
+          </strong>
+
+          ${item.addons
+            .map(addon => addon.name)
+            .join(" • ")}
+
+        </div>
+
+      `;
+
+    }else{
+
+      html += `
+
+        <div
+          style="
+            margin-top:6px;
+            color:#777;
+          "
+        >
+          Sem acompanhamentos
+        </div>
+
+      `;
+
+    }
+
+    html += `
+
+        <div
+          style="
+            margin-top:6px;
+            color:#777;
+            line-height:1.5;
+          "
+        >
+          🥄 Colher: ${spoon}<br>
+          🥛 Leite condensado: ${condensedMilk}
+        </div>
+
+        <div
+          style="
+            margin-top:5px;
+            font-weight:700;
+          "
+        >
+          ${money(item.total)}
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  const subtotal =
+    cart.reduce(
+      (sum,item) =>
+        sum + item.total,
+      0
+    );
+
+  const delivery =
+    cartReceive === "Entrega"
+      ? DELIVERY_FEE
+      : 0;
+
+  const total =
+    subtotal + delivery;
+
+  html += `
+
+    <div
+      style="
+        margin-top:14px;
+        padding-top:14px;
+        border-top:1px solid #ddd;
+      "
+    >
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          margin-bottom:7px;
+        "
+      >
+
+        <span>
+          Subtotal
+        </span>
+
+        <strong>
+          ${money(subtotal)}
+        </strong>
+
+      </div>
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          margin-bottom:8px;
+        "
+      >
+
+        <span>
+          Entrega
+        </span>
+
+        <strong>
+          ${
+            delivery === 0
+              ? "Grátis"
+              : money(delivery)
+          }
+        </strong>
+
+      </div>
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          font-size:19px;
+          font-weight:800;
+        "
+      >
+
+        <span>
+          Total
+        </span>
+
+        <strong style="color:var(--purple)">
+          ${money(total)}
+        </strong>
+
+      </div>
+
+    </div>
+
+  `;
+
+  document.getElementById(
+    "orderSummary"
+  ).innerHTML = html;
+
+}
+
+
+/* =====================================================
+   SELECIONAR ENTREGA
+===================================================== */
+
+function selectReceive(type){
+
+  receiveType = type;
+
+  cartReceive = type;
+
+  document
+    .getElementById("deliveryBtn")
+    .classList
+    .toggle(
+      "selected",
+      type === "Entrega"
+    );
+
+  document
+    .getElementById("pickupBtn")
+    .classList
+    .toggle(
+      "selected",
+      type === "Retirada"
+    );
+
+  document.getElementById(
+    "addressFields"
+  ).style.display =
+    type === "Entrega"
+      ? "block"
+      : "none";
+
+  renderSummary();
+
+  saveCustomerData();
+
+}
+
+
+/* =====================================================
+   SALVAR ENQUANTO DIGITA
+===================================================== */
+
+[
+  "customerName",
+  "address",
+  "neighborhood",
+  "complement",
+  "payment",
+  "changeNeeded",
+  "changeFor"
+].forEach(id => {
+
+  const element =
+    document.getElementById(id);
+
+  if(element){
+
+    element.addEventListener(
+      "input",
+      saveCustomerData
+    );
+
+    element.addEventListener(
+      "change",
+      saveCustomerData
+    );
+
+  }
+
+});
+
+
+/* =====================================================
+   EVENTO PAGAMENTO
+===================================================== */
+
+document
+  .getElementById("payment")
+  .addEventListener(
+    "change",
+    function(){
+
+      updateChangeOptions();
+
+      saveCustomerData();
+
+    }
+  );
+
+
+/* =====================================================
+   EVENTO TROCO
+===================================================== */
+
+document
+  .getElementById("changeNeeded")
+  .addEventListener(
+    "change",
+    function(){
+
+      updateChangeOptions();
+
+      saveCustomerData();
+
+    }
+  );
+
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
+function sendOrder(){
+
+  const name =
+    document
+      .getElementById("customerName")
+      .value
+      .trim();
+
+  const payment =
+    document
+      .getElementById("payment")
+      .value;
+
+  const changeNeeded =
+    document
+      .getElementById("changeNeeded")
+      .value;
+
+  const changeFor =
+    document
+      .getElementById("changeFor")
+      .value
+      .trim();
+
+  if(!name){
+
+    alert("Digite seu nome.");
+
+    return;
+
+  }
+
+  if(
+    receiveType === "Entrega" &&
+    !document
+      .getElementById("address")
+      .value
+      .trim()
+  ){
+
+    alert("Digite seu endereço.");
+
+    return;
+
+  }
+
+  /* VALIDAR TROCO */
+
+  if(
+    payment === "Dinheiro" &&
+    changeNeeded === "Sim"
+  ){
+
+    const changeValue =
+      parseFloat(
+        changeFor.replace(",", ".")
+      );
+
+    if(
+      !changeFor ||
+      isNaN(changeValue) ||
+      changeValue <= 0
+    ){
+
+      alert(
+        "Informe para quanto precisa do troco."
+      );
+
+      document
+        .getElementById("changeFor")
+        .focus();
+
+      return;
+
+    }
+
+  }
+
+  saveCustomerData();
+
+  let message =
+    "*NOVO PEDIDO — MAIS AÇAÍ*%0A%0A";
+
+  message +=
+    "*Cliente:* " +
+    name +
+    "%0A";
+
+  message +=
+    "*Recebimento:* " +
+    receiveType +
+    "%0A";
+
+  message +=
+    "*Pagamento:* " +
+    payment +
+    "%0A";
+
+  /* TROCO */
+
+  if(payment === "Dinheiro"){
+
+    if(changeNeeded === "Sim"){
+
+      message +=
+        "*Troco:* Sim — para " +
+        money(
+          parseFloat(
+            changeFor.replace(",", ".")
+          )
+        ) +
+        "%0A";
+
+    }else{
+
+      message +=
+        "*Troco:* Não precisa%0A";
+
+    }
+
+  }
+
+  message += "%0A";
+
+  message +=
+    "*PEDIDO*%0A";
+
+
+  /* =====================================================
+     PRODUTOS
+  ===================================================== */
+
+  cart.forEach(item => {
+
+    const spoon =
+      item.options?.spoon || "Não";
+
+    const condensedMilk =
+      item.options?.condensedMilk || "Não";
+
+    message +=
+      "%0A*" +
+      item.quantity +
+      "x " +
+      item.name +
+      "*";
+
+    if(
+      item.addons &&
+      item.addons.length > 0
+    ){
+
+      message +=
+        "%0A_Acompanhamentos:_";
+
+      item.addons.forEach(addon => {
+
+        message +=
+          "%0A• " +
+          addon.name;
+
+      });
+
+    }else{
+
+      message +=
+        "%0A_Acompanhamentos: Nenhum_";
+
+    }
+
+    message +=
+      "%0A_Colher: " +
+      spoon +
+      "_";
+
+    message +=
+      "%0A_Leite condensado: " +
+      condensedMilk +
+      "_";
+
+    message +=
+      "%0A*Valor: " +
+      money(item.total) +
+      "*%0A";
+
+  });
+
+
+  /* =====================================================
+     ENDEREÇO
+  ===================================================== */
+
+  if(receiveType === "Entrega"){
+
+    message +=
+      "%0A*ENDEREÇO*";
+
+    const address =
+      document
+        .getElementById("address")
+        .value
+        .trim();
+
+    const neighborhood =
+      document
+        .getElementById("neighborhood")
+        .value
+        .trim();
+
+    const complement =
+      document
+        .getElementById("complement")
+        .value
+        .trim();
+
+    message +=
+      "%0A" +
+      address;
+
+    if(neighborhood){
+
+      message +=
+        "%0A" +
+        neighborhood;
+
+    }
+
+    if(complement){
+
+      message +=
+        "%0A" +
+        complement;
+
+    }
+
+  }
+
+
+  /* =====================================================
+     VALORES
+  ===================================================== */
+
+  const subtotal =
+    cart.reduce(
+      (sum,item) =>
+        sum + item.total,
+      0
+    );
+
+  const delivery =
+    receiveType === "Entrega"
+      ? DELIVERY_FEE
+      : 0;
+
+  const total =
+    subtotal + delivery;
+
+  message +=
+    "%0A%0A*RESUMO*";
+
+  message +=
+    "%0ASubtotal: " +
+    money(subtotal);
+
+  message +=
+    "%0AEntrega: " +
+    (
+      delivery === 0
+        ? "Grátis"
+        : money(delivery)
+    );
+
+  message +=
+    "%0A*TOTAL: " +
+    money(total) +
+    "*";
+
+
+  /* =====================================================
+     WHATSAPP
+  ===================================================== */
+
+  const phone =
+    "5579999161157";
+
+  const url =
+    "https://wa.me/" +
+    phone +
+    "?text=" +
+    message;
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+
+/* =====================================================
+   INICIAR SITE
+===================================================== */
+
+loadCustomerData();
+
+updateCart();
+
+updateChangeOptions();
+
+</script>
+
+</body>
+</html>
